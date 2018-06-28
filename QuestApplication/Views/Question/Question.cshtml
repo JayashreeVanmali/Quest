@@ -1,0 +1,75 @@
+﻿@model QuestApplication.Entities.Question
+
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Question"))
+{
+    @Html.AntiForgeryToken()    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Description)
+        @Html.HiddenFor(model => model.OptionOne)
+        @Html.HiddenFor(model => model.OptionTwo)
+        @Html.HiddenFor(model => model.OptionThree)
+        @Html.HiddenFor(model => model.Mark)
+        @Html.HiddenFor(model => model.Answer)
+        @Html.HiddenFor(model => model.SerialNo)
+        <fieldset id="QuestionFieldSet">
+            @ViewBag.Answer
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.RadioButtonFor(model => model.OptionFour, @Html.DisplayFor(model => model.OptionOne))
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OptionOne)
+                </dd>
+
+                <dt>
+                    @Html.RadioButtonFor(model => model.OptionFour, @Html.DisplayFor(model => model.OptionTwo))
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OptionTwo)
+                </dd>
+
+                <dt>
+                    @Html.RadioButtonFor(model => model.OptionFour, @Html.DisplayFor(model => model.OptionThree))
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OptionThree)
+                </dd>
+
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </fieldset>        
+           
+                   
+        <p>@ViewBag.Result</p>
+    </div>
+}    
+     
+    <div>
+
+        @Html.ActionLink("Next", "NextQuestion", new { @serialNo = Model.SerialNo + 1 }) <br/>
+        @Html.ActionLink("Back to Assignment List", "Index", "Assignment")
+    </div>

@@ -1,0 +1,100 @@
+﻿@model QuestApplication.Entities.Assignment
+
+@{
+    ViewBag.Title = "Assignment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Assignment</h2>
+
+@if (ViewBag.IsTeacher)
+{
+    <br />
+    @Html.ActionLink("Add question", "CreateQuestion")
+}
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    
+    <table class="table">
+        @if (Model.Questions != null && Model.Questions.Count > 0)
+        {
+            var questHeader = Model.Questions.First();
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.OptionOne)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.OptionTwo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.OptionThree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.Answer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => questHeader.Mark)
+            </th>
+            <th></th>
+        </tr>
+        }
+        @foreach (var question in Model.Questions)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(item => question.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(item => question.OptionOne)
+            </td>
+            <td>
+                @Html.DisplayFor(item => question.OptionTwo)
+            </td>
+            <td>
+                @Html.DisplayFor(item => question.OptionThree)
+            </td>
+            <td>
+                @Html.DisplayFor(item => question.Answer)
+            </td>
+            <td>
+                @Html.DisplayFor(item => question.Mark)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "CreateQuestion", new { questionId = question.Id }) |                
+                @Html.ActionLink("Delete", "DeleteQuestion", new { questionId = question.Id })
+            </td>
+        </tr>
+    }
+    </table>
+    </p>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
